@@ -25,11 +25,11 @@ RUN pip3 install flake8-docstrings
 
 # Installation Visual studio
 
-RUN  curl https://code.visualstudio.com/download/code_1.21.1-1521038896_amd64.deb
-RUN dpkg -i code_1.21.1-1521038896_amd64.deb
-RUN apt-get install -f # Install dependencies
+RUN  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+RUN sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+RUN sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 RUN apt-get update
-RUN apt-get install code # or code-insiders
+RUN apt-get install -y code 
 
 WORKDIR ${WORKDIRECTORY}
 RUN cd ${WORKDIRECTORY} \
